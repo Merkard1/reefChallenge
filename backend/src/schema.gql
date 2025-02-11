@@ -1,0 +1,116 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AdminDashboard {
+  metrics: [Metric!]!
+  revenueOverTime: [RevenueDataPoint!]!
+  topProductSales: [ProductSalesDataPoint!]!
+}
+
+type AuthPayload {
+  accessToken: String!
+  refreshToken: String!
+  user: User!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Metric {
+  label: String!
+  value: Float!
+}
+
+type Mutation {
+  createOrder(customerName: String!, items: [OrderItemInput!]!, status: String!): Order!
+  createProduct(description: String!, image: String!, name: String!, price: Float!): Product!
+  createRandomOrder: Order!
+  createUser(email: String!, firstName: String!, lastName: String!, password: String!, roles: [String!]! = ["ADMIN"]): User!
+  deleteProduct(id: Int!): Boolean!
+  deleteUser(id: Int!): User!
+  login(email: String!, password: String!): AuthPayload!
+  logout: Boolean!
+  refresh(refreshToken: String!): AuthPayload!
+  register(email: String!, firstName: String!, lastName: String!, password: String!): AuthPayload!
+  updateOrderStatus(id: Int!, status: String!): Order!
+  updateProduct(description: String, id: Int!, image: String, name: String, price: Float): Product!
+  updateUser(id: Int!, roles: [String!]): User!
+}
+
+type Order {
+  customerName: String!
+  id: Int!
+  orderDate: DateTime!
+  orderItems: [OrderItem!]!
+  status: String!
+}
+
+type OrderItem {
+  id: Int!
+  price: Float!
+  productId: Int!
+  quantity: Int!
+}
+
+input OrderItemInput {
+  price: Float
+  productId: Int!
+  quantity: Int!
+}
+
+type Product {
+  createdAt: DateTime!
+  description: String!
+  id: Int!
+  image: String!
+  name: String!
+  price: Float!
+  updatedAt: DateTime!
+}
+
+type ProductSalesDataPoint {
+  productName: String!
+  sales: Float!
+}
+
+type Query {
+  adminDashboard: AdminDashboard!
+  me: User
+  order(id: Int!): Order!
+  orders(searchTerm: String, status: String): [Order!]!
+  products: [Product!]!
+  productsFiltered(order: String, search: String, sortKey: String): [Product!]!
+  salesReport(endDate: String!, startDate: String!): SalesReport!
+  user(id: Int!): User!
+  users: [User!]!
+}
+
+type RevenueDataPoint {
+  date: String!
+  revenue: Float!
+}
+
+type SalesDataPoint {
+  date: String!
+  ordersCount: Int!
+  totalSales: Float!
+}
+
+type SalesReport {
+  averageOrderValue: Float!
+  dataPoints: [SalesDataPoint!]!
+  orders: [Order!]!
+  ordersCount: Int!
+  totalSales: Float!
+}
+
+type User {
+  email: String!
+  firstName: String!
+  id: Int!
+  lastName: String!
+  roles: [String!]!
+}

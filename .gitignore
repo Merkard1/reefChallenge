@@ -1,0 +1,19 @@
+# Environment Variables
+
+
+# Node Modules
+node_modules/
+
+# Docker Files
+docker-compose.override.yml
+
+# Build Output
+backend/dist/
+frontend/dist/
+
+# Logs
+logs/
+*.log
+
+# OS Files
+.DS_Store
