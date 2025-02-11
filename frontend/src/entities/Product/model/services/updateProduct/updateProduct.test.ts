@@ -8,7 +8,7 @@ const sampleProduct = {
   name: "Test Product",
   description: "A test product",
   price: 100,
-  imageUrl: "image.jpg",
+  image: "image.jpg",
 };
 
 describe("updateProduct thunk", () => {
@@ -35,7 +35,7 @@ describe("updateProduct thunk", () => {
       name: sampleProduct.name,
       description: sampleProduct.description,
       price: sampleProduct.price,
-      image: sampleProduct.imageUrl,
+      image: sampleProduct.image,
       createdAt: "2025-01-01T00:00:00.000Z",
       updatedAt: "2025-01-02T00:00:00.000Z",
     };
@@ -77,7 +77,7 @@ describe("updateProduct thunk", () => {
       name: sampleProduct.name,
       description: sampleProduct.description,
       price: sampleProduct.price,
-      image: sampleProduct.imageUrl,
+      image: sampleProduct.image,
     });
     expect(body.query).toContain("mutation UpdateProduct");
   });

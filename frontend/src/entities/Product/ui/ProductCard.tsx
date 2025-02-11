@@ -30,17 +30,18 @@ export const ProductCard: React.FC<ProductCardProps> = memo(
     const editingProductId = useSelector(getEditingProductId);
     const isEditing = editingProductId === product.id;
 
+    // Notice: We now use product.image instead of product.imageUrl.
     const [editName, setEditName] = useState(product.name);
     const [editDescription, setEditDescription] = useState(product.description);
     const [editPrice, setEditPrice] = useState(product.price);
-    const [editImageUrl, setEditImageUrl] = useState(product.imageUrl);
+    const [editImage, setEditImage] = useState(product.image);
 
     useEffect(() => {
       if (isEditing) {
         setEditName(product.name);
         setEditDescription(product.description);
         setEditPrice(product.price);
-        setEditImageUrl(product.imageUrl);
+        setEditImage(product.image);
       }
     }, [isEditing, product]);
 
@@ -58,7 +59,7 @@ export const ProductCard: React.FC<ProductCardProps> = memo(
         name: editName,
         description: editDescription,
         price: editPrice,
-        imageUrl: editImageUrl,
+        image: editImage, // update here using 'image'
       };
       if (onEdit) onEdit(updated);
       dispatch(updateProduct(updated));
@@ -86,7 +87,7 @@ export const ProductCard: React.FC<ProductCardProps> = memo(
           <CardMedia
             component="img"
             height="140"
-            image={product.imageUrl}
+            image={product.image} // using product.image
             alt={product.name}
           />
           <CardContent>
@@ -146,8 +147,8 @@ export const ProductCard: React.FC<ProductCardProps> = memo(
               />
               <TextField
                 label="Image URL"
-                value={editImageUrl}
-                onChange={(e) => setEditImageUrl(e.target.value)}
+                value={editImage}
+                onChange={(e) => setEditImage(e.target.value)}
               />
             </Box>
           </CardContent>

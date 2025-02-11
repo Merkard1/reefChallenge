@@ -45,7 +45,7 @@ export const updateProduct = createAsyncThunk(
             name: updatedProduct.name,
             description: updatedProduct.description,
             price: updatedProduct.price,
-            image: updatedProduct.imageUrl, // Map frontend "imageUrl" to backend "image"
+            image: updatedProduct.image,
           },
         }),
       });
