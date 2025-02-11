@@ -17,13 +17,13 @@ PostgreSQL (if running without Docker)
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/
+   git clone https://github.com/Merkard1/reefChallenge
    ```
 
 2. **Navigate to the project’s root directory:**
 
    ```bash
-   cd reef-challenge
+   cd reefchallenge
    ```
 
 3. **Run Docker Compose to build and start the containers:**
@@ -85,3 +85,13 @@ docker-compose down -v
 10. **Async Thunks (Frontend):**
 
     - The frontend uses Redux async thunks to fetch data (e.g., dashboard metrics, sales reports) from the GraphQL API.
+
+### Architecture Overview
+
+1. **Backend Framework:** NestJS
+2. **API:** GraphQL
+3. **Database:** PostgreSQL (accessed via Prisma ORM)
+4. **Real-Time Communication:** Socket.IO (using NestJS WebSockets)
+5. **Seeding:** Automated with a SeederService that runs on startup
+6. **Testing:** Unit tests with Jest
+7. **Frontend:** Uses Redux with async thunks for API calls and displays real-time notifications
