@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { backPort } from "@/shared/const/back";
-import { accessToken } from "@/shared/const/token"; // or wherever your token key is
+import { accessToken } from "@/shared/const/token";
 
 export const deleteProduct = createAsyncThunk(
   "products/deleteProduct",
@@ -48,7 +48,6 @@ export const deleteProduct = createAsyncThunk(
         return thunkAPI.rejectWithValue(data.errors[0].message);
       }
 
-      // If successful, return the ID so your Redux slice can update state
       return id;
     } catch (error) {
       if (error instanceof Error) {

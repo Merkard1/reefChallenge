@@ -33,15 +33,12 @@ export const ProductSearchAndFilter: React.FC<ProductSearchAndFilterProps> = ({
   const productsList = useSelector(getProductsList);
   const status = useSelector(getProductsStatus);
 
-  // Local state for search, sort key, and order.
   const [searchTerm, setSearchTerm] = useState("");
   const [sortKey, setSortKey] = useState("name");
   const [order, setOrder] = useState<"asc" | "desc">("asc");
 
-  // Use debounce for the search term with a 1-second delay.
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-  // Whenever the debounced search term, sort key, or order changes, dispatch the fetch action.
   useEffect(() => {
     dispatch(
       fetchFilteredProducts({ search: debouncedSearchTerm, sortKey, order })

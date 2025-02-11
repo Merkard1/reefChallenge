@@ -69,7 +69,6 @@ export const registerUser = createAsyncThunk<
 
     const registerData = json.data.register;
 
-    // Store tokens
     localStorage.setItem(aToken, registerData.accessToken);
     Cookies.set(rToken, registerData.refreshToken, {
       secure: true,

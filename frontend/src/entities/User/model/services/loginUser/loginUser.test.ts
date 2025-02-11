@@ -2,7 +2,7 @@
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import type { Mock } from "vitest";
-import { loginUser } from "./loginUser"; // Adjust path as needed.
+import { loginUser } from "./loginUser";
 import { backPort } from "@/shared/const/back";
 import {
   accessToken as aToken,
@@ -10,7 +10,6 @@ import {
 } from "@/shared/const/token";
 import Cookies from "js-cookie";
 
-// Properly mock js‑cookie.
 vi.mock("js-cookie", async () => {
   const actual = await vi.importActual("js-cookie");
   return {
@@ -33,10 +32,8 @@ describe("loginUser thunk", () => {
     dispatch = vi.fn();
     getState = vi.fn();
 
-    // Stub global.fetch.
     global.fetch = vi.fn();
 
-    // Stub localStorage.
     global.localStorage = {
       getItem: vi.fn(),
       setItem: vi.fn(),
@@ -44,7 +41,6 @@ describe("loginUser thunk", () => {
     localStorageGetItem = global.localStorage.getItem as Mock;
     localStorageSetItem = global.localStorage.setItem as Mock;
 
-    // No need to reassign Cookies.set manually if the mock is set up correctly.
     vi.clearAllMocks();
   });
 
@@ -52,7 +48,7 @@ describe("loginUser thunk", () => {
     const credentials = { email: "user@example.com", password: "password123" };
 
     const fakeUser = {
-      id: "1", // User IDs as strings.
+      id: "1",
       firstName: "John",
       lastName: "Doe",
       email: "user@example.com",
@@ -65,7 +61,6 @@ describe("loginUser thunk", () => {
       refreshToken: "refresh123",
     };
 
-    // Simulate a successful fetch response.
     (global.fetch as unknown as Mock).mockResolvedValue({
       ok: true,
       json: async () => ({ data: { login: fakeLoginData } }),
@@ -76,7 +71,6 @@ describe("loginUser thunk", () => {
     expect(action.type).toContain("/fulfilled");
     expect(action.payload).toEqual(fakeLoginData);
 
-    // Verify that tokens are stored.
     expect(localStorageSetItem).toHaveBeenCalledWith(
       aToken,
       fakeLoginData.accessToken
@@ -91,7 +85,6 @@ describe("loginUser thunk", () => {
       }
     );
 
-    // Verify the fetch call.
     const [url, options] = (global.fetch as unknown as Mock).mock.calls[0];
     expect(url).toEqual(backPort);
     expect(options.method).toBe("POST");
@@ -101,7 +94,6 @@ describe("loginUser thunk", () => {
     expect(body.variables).toEqual(credentials);
   });
 
-  // Additional tests for rejected cases…
   it("should reject if response is not ok", async () => {
     const credentials = { email: "user@example.com", password: "password123" };
 
